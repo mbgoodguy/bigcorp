@@ -10,6 +10,18 @@ from django.utils.text import slugify
 def rand_slug():
     return ''.join(random.choice(string.ascii_lowercase + string.digits) for _ in range(3))
 
+    class Product(models.Model):
+        category = models.ForeignKey(Category, related_name='products', on_delete=models.CASCADE)
+        title = models.CharField('Название', max_length=250)
+        brand = models.CharField('Бренд', max_length=250)
+        description = models.TextField('Описание', blank=True)
+        slug = models.SlugField('URL', max_length=250)
+        price = models.DecimalField('Цена', max_digits=7, decimal_places=2, default=99.99)
+        image = models.ImageField('Изображение', upload_to='products/products/%Y/%m/%d')
+        available = models.BooleanField('Наличие', default=True)
+        created_at = models.DateTimeField('Дата создания', auto_now_add=True)
+        updated_at = models.DateTimeField('Дата изменения', auto_now=True)
+
 
 class Category(models.Model):
     name = models.CharField(max_length=250, db_index=True)
