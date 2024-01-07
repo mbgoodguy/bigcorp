@@ -9,9 +9,9 @@ def products_view(request):
 
 
 def products_detail_view(request, slug):
-    slug = get_object_or_404(ProductProxy, slug=slug)
-    products = ProductProxy.objects.all()
-    return render(request, 'shop/product_detail.html', {'products': products})
+    product = get_object_or_404(ProductProxy, slug=slug)
+    return render(request, 'shop/product_detail.html', {'product': product})
+
 
 
 def category_list(request, slug):
