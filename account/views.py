@@ -12,19 +12,12 @@ def user_register(request):
         form = UserCreateForm(request.POST)
         if form.is_valid():
             user = form.save(commit=False)
-            user_email = form.cleaned_data.get('email')
-            user_username = form.cleaned_data.get('username')
-            user_password = form.cleaned_data.get('password1')
-
-            user = User.objects.create_user(
-                username=user_username, email=user_email, password=user_password
-            )
-
-            user.is_active = False
+            user.is_active = False  # Добавьте эту строку
+            user.save()  # Сохраните пользователя после добавления is_active
 
             send_email(user)
 
-            return redirect('')
+            return redirect('account:email-verification-sent')
 
     else:
         form = UserCreateForm()
