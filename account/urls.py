@@ -11,4 +11,10 @@ urlpatterns = [
          lambda request: render(request, 'account/email/email-verification-sent.html'),
          name='email-verification-sent'
          ),
+    path('login/', views.login_user, name='login'),
+    path('logout/', views.logout_user, name='logout'),
+    path('dashboard/', views.dashboard_user, name='dashboard'),
+    path('profile_management/', views.profile_user, name='profile-management'),
+    path('delete_user/', views.delete_user, name='delete-user'),
+
 ]
