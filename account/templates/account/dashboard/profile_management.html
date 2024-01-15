@@ -31,6 +31,7 @@
 
     <form method="post">
         {% csrf_token %}
+        <p>Вы можете обновить имя своего пользователя и email-адрес</p>
         {{ form|crispy }}
         <button type="submit" class="btn btn-secondary w-100 btn-block p-2 btn-register">Update account</button>
     </form>
