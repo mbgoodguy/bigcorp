@@ -26,9 +26,10 @@ class UserCreateForm(UserCreationForm):
         email = self.cleaned_data['email'].lower()
 
         # email unique validator
-        if User.objects.filter(email=email).exists():
-            raise ValidationError('Email is already in use')
-
+        # if User.objects.filter(email=email).exists() and len(email) > 254:  # WILL NOT WORK WITH and
+        #     raise ValidationError('Email is already in use or greater than 254 symbols')
+        if User.objects.filter(email=email).exists() or len(email) > 254:
+            raise ValidationError('Email is already in use or greater than 254 symbols')
         return email
 
 
@@ -51,3 +52,12 @@ class UserUpdateForm(forms.ModelForm):
         # ATTENTION: if use field instead fields form will contain all user fields from admin
         fields = ['username', 'email']
         exclude = ('password1', 'password2')
+
+    def clean_email(self):
+        email = self.cleaned_data.get('email').lower()
+
+        if User.objects.filter(email=email).exclude(id=self.instance.id).exists() or len(email) > 254:
+            # raise forms.ValidationError('Email is already in use or greater than 254 symbols')
+            raise ValidationError('Email is already in use or greater than 254 symbols')
+
+        return email
