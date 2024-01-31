@@ -1,16 +1,27 @@
-{%  include "base.html" %}
+{% extends "base.html" %}
 
 {% load static %}
 
+{% block head %}
+<link rel="stylesheet" href="{% static 'payment/css/payment-success-fail.css' %}">
+{% endblock head %}
+
 {% block content %}
-<br>
 
-<div class="container bg-white shadow-md p-5 form-layout">
+<div class="container">
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-5 text-center">
+            <div class="message-box _success">
+                <i class="fa fa-check-circle" aria-hidden="true"></i>
+                <h3> Оплата прошла успешно </h3>
+                <br>
+                <p> Благодарим вас за заказ! </p>
+            </div>
+        <a href="{% url 'shop:products' %}" class="btn btn-secondary btn-sm" role="button">Вернуться в каталог</a>
 
-    <p>Payment is OK</p>
+        </div>
 
-   <br>
+    </div>
 
-</div>
 
-{% endblock %}
+{% endblock content %}
