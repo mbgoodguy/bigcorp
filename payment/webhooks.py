@@ -7,6 +7,7 @@ from django.views.decorators.csrf import csrf_exempt
 from yookassa import Webhook
 
 from payment.models import Order
+from payment.tasks import send_order_confirmation
 
 
 @csrf_exempt  # disable protection against CSRF attacks, because in this case we don’t need it
@@ -48,6 +49,7 @@ def stripe_webhook(request):
             except Order.DoesNotExist:
                 return HttpResponse(status=404)
 
+            send_order_confirmation.delay(order_id)
             order = Order.objects.get(id=order_id)
             order.paid = True
             order.save()
