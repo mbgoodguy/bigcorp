@@ -4,20 +4,20 @@ from django.views.generic import ListView
 from .models import Category, ProductProxy
 
 
-def products_view(request):
-    products = ProductProxy.objects.all()
-    return render(request, 'shop/products.html', {'products': products})
+# def products_view(request):
+#     products = ProductProxy.objects.all()
+#     return render(request, 'shop/products.html', {'products': products})
 
-# class ProductListView(ListView):
-#     model = ProductProxy
-#     context_object_name = 'products'
-#     paginate_by = 15  # легко задавать пагинацию
-#
-#     # for auto loading of goods upon delivery of the latest
-#     def get_template_names(self):
-#         if self.request.htmx:
-#             return 'shop/components/product_list.html'
-#         return 'shop/products.html'
+class ProductListView(ListView):
+    model = ProductProxy
+    context_object_name = 'products'
+    paginate_by = 15  # легко задавать пагинацию
+
+    # for auto loading of goods upon delivery of the latest
+    def get_template_names(self):
+        if self.request.htmx:
+            return 'shop/components/product_list.html'
+        return 'shop/products.html'
 
 
 def products_detail_view(request, slug):

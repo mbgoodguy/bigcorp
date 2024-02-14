@@ -43,9 +43,9 @@ class Category(models.Model):
             k = k.parent
         return ' > '.join(full_path[::-1])
 
-    @staticmethod
-    def _rand_slug():
-        return ''.join(random.choice(string.ascii_lowercase + string.digits) for _ in range(3))
+    # @staticmethod
+    # def _rand_slug():
+    #     return ''.join(random.choice(string.ascii_lowercase + string.digits) for _ in range(3))
 
     def save(self, *args, **kwargs):
         """
