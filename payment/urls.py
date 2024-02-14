@@ -4,7 +4,7 @@ from django.shortcuts import render
 from django.urls import path, include
 
 from . import views
-from .webhooks import stripe_webhook
+from .webhooks import stripe_webhook, yookassa_webhook
 
 app_name = 'payment'
 
@@ -15,5 +15,6 @@ urlpatterns = [
     path('payment_success/', views.payment_success, name='payment-success'),
     path('payment_fail/', views.payment_fail, name='payment-fail'),
     path('webhook_stripe/', stripe_webhook, name='webhook-stripe'),
-
+    path('webhook-yookassa/', yookassa_webhook, name='webhook-yookassa'),
+    path('order/<int:order_id>/pdf/', views.admin_order_pdf, name='admin_order_pdf')
 ]

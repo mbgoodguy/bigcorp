@@ -2,9 +2,13 @@ import uuid
 from decimal import Decimal
 
 import stripe
+import weasyprint
+from django.conf.urls.static import static
+from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.decorators import login_required
-from django.http import JsonResponse
+from django.http import JsonResponse, Http404, HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
+from django.template.loader import render_to_string
 from django.urls import reverse
 
 from cart.cart import Cart
@@ -177,3 +181,20 @@ def payment_success(request):
 
 def payment_fail(request):
     return render(request, 'payment/payment_fail.html')
+
+
+@staff_member_required
+def admin_order_pdf(request, order_id):
+    try:
+        order = Order.objects.select_related('user', 'shipping_address').get(id=order_id)
+    except Order.DoesNotExist:
+        raise Http404('Заказ не найден')
+    html = render_to_string('payment/order/pdf/pdf_invoice.html',
+                            {'order': order})
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = f'filename=order_{order.id}.pdf'
+    # css_path = static('payment/css/pdf.css').lstrip('/')
+    css_path = 'static/payment/css/pdf.css'
+    stylesheets = [weasyprint.CSS(css_path)]
+    weasyprint.HTML(string=html).write_pdf(response, stylesheets=stylesheets)
+    return response
