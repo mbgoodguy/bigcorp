@@ -16,14 +16,16 @@
             </div>
         </div>
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
-            <div class="ms-auto d-none d-lg-block">
-                <div class="input-group">
-                    <span class="border-success input-group-text text-white search-button"><i
-                            class="fa-solid fa-magnifying-glass"></i></span>
-                    <input type="text" class="form-control border-success" style="color: #7a7a7a" />
-                    <button class="btn btn-success text-dark search-button">Search</button>
+            <form action="{% url 'shop:search_products' %}" method="get">
+                <div class="ms-auto d-none d-lg-block">
+                    <div class="input-group">
+                        <span class="border-success input-group-text text-white search-button"><i
+                                class="fa-solid fa-magnifying-glass"></i></span>
+                        <input type="text" name="q" placeholder="Введите запрос для поиска" class="form-control border-success" style="color: #7a7a7a" />
+                        <button class="btn btn-success text-dark search-button">Search</button>
+                    </div>
                 </div>
-            </div>
+            </form>
             <ul class="navbar-nav ms-auto">
                 {% for i in categories %}
 

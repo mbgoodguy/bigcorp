@@ -13,7 +13,7 @@ urlpatterns = [
     path('account/', include('account.urls', namespace='account')),
     path('email/', include(email_urls), name='email-verification'),
     path('payment/', include('payment.urls', namespace='payment')),
-    # path('', views.index, name='index'),
+    path('recommend/', include('payment.urls', namespace='recommend')),
 
 ]
 

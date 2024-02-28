@@ -1,4 +1,5 @@
 from pathlib import Path
+from django.contrib import messages
 
 import environ
 
@@ -29,13 +30,15 @@ INSTALLED_APPS = [
     'sorl.thumbnail',
     'django_celery_results',
     'django_celery_beat',
-    "django_htmx",
+    'django_htmx',
+    'mathfilters',
 
     # apps
     'shop.apps.ShopConfig',
     'cart.apps.CartConfig',
     'account.apps.AccountConfig',
     'payment.apps.PaymentConfig',
+    'recommend.apps.RecommendConfig',
 ]
 
 MIDDLEWARE = [
@@ -111,6 +114,14 @@ STATICFILES_DIRS = [
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+
+MESSAGE_TAGS = {
+    messages.DEBUG: 'alert-secondary',
+    messages.INFO: 'alert-info',
+    messages.SUCCESS: 'alert-success',
+    messages.WARNING: 'alert-warning',
+    messages.ERROR: 'alert-danger',
+ }
 
 # crispy forms
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
