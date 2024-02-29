@@ -7,20 +7,19 @@
 6. Generate fake products: ```sudo docker exec -it bigcorp-backend python manage.py fakerproducts```. You will see 'Products in DB: 20' in console.
 
 ## Technologies in project
-Python
-JavaScript
-Ajax
-CSS
-HTML
-Postgres
-Celery
-Redis
-Django
-Django Rest Framework
-Nginx
-Gunicorn
-Swagger and Redoc Docs
-Stripe
-Docker
-Docker Compose
-Git
+- Python
+- JavaScript
+- Ajax
+- CSS
+- HTML
+- Postgres
+- Celery
+- Redis
+- Django
+- Django Rest Framework
+- Nginx
+- Gunicorn
+- Swagger and Redoc Docs
+- Stripe
+- Docker
+- Git
